@@ -1,5 +1,5 @@
 import Lazy from './lazy'
-import { App } from 'vue'
+import { App, DirectiveBinding } from 'vue'
 import { LazyOptions } from './types'
 
 export default {
@@ -13,7 +13,7 @@ export default {
     // 自定义指令 v-lazy
     app.directive('lazy', {
       // 绑定元素的父组件被挂载时调用
-      mounted(el, binding) {
+      mounted(el: HTMLElement, binding: DirectiveBinding<any>) {
         // 1. 检测是否挂载正确
         if (el.nodeName.toLocaleLowerCase() !== 'img') {
           throw new Error('在非img标签上使用了 v-lazy')
