@@ -4,9 +4,9 @@ import { LazyOptions } from './types'
 
 export default {
   // app 为 Vue的实例， options 的类型可以自己到时候定义，目前先写个 object
-  install: (app: App, options: LazyOptions) => {
+  install: (app: App, options?: LazyOptions): void => {
     // console.log({ app, options })
-
+    options = Object.assign({}, options)
     // new 一个 Lazy 实例
     const lazy = new Lazy(options)
 

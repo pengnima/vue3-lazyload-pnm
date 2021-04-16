@@ -1,5 +1,5 @@
 /*!
- * Vue3-Lazyload.js v1.0.0
+ * Vue3-Lazyload.js v0.0.4
  * A Vue3.x image lazyload plugin
  * (c) 2021 PengNima 
  * Released under the MIT License.
@@ -130,6 +130,7 @@ var index = {
     // app 为 Vue的实例， options 的类型可以自己到时候定义，目前先写个 object
     install: function (app, options) {
         // console.log({ app, options })
+        options = Object.assign({}, options);
         // new 一个 Lazy 实例
         var lazy = new Lazy(options);
         // 自定义指令 v-lazy

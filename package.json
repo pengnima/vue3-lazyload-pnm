@@ -1,10 +1,10 @@
 {
   "name": "vue3-lazyload-pnm",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "description": "适用于Vue3的图片懒加载",
-  "main": "./dist/vue3-lazyload.min.js",
-  "module": "dist/vue3-lazyload.esm.js",
-  "unpkg": "dist/vue3-lazyload.min.js",
+  "main": "dist/vue3-lazyload-pnm.js",
+  "module": "dist/vue3-lazyload-pnm.esm.js",
+  "unpkg": "dist/vue3-lazyload-pnm.min.js",
   "scripts": {
     "build": "node rollup.config.js"
   },
@@ -12,6 +12,11 @@
     "@vue/compiler-sfc": ">=3.0.0",
     "vue": ">=3.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pengnima/vue3-lazyload-pnm"
+  },
+  "typings": "types/index.d.ts",
   "author": "彭尼玛",
   "license": "MIT",
   "devDependencies": {
