@@ -29,7 +29,8 @@ class Lazy {
               // console.log('加载')
               v.el.onload = this._newImgLoadEvent.bind(this, v.el, v.binding)
 
-              this._setImgSrc(v.el, v.binding.value, LifeAttrEnum.LAZYED)
+              // this._setImgSrc(v.el, v.binding.value, LifeAttrEnum.LAZYED)
+              v.el.setAttribute('src', v.binding.value)
 
               this._io.unobserve(v.el) // 移除监听
               this._imgList.splice(i, 1) // 删除元素
@@ -65,8 +66,8 @@ class Lazy {
    */
   private _newImgLoadEvent(el: HTMLElement, binding: DirectiveBinding<any>) {
     // console.log('进入new load事件，移出 el.onload 事件')
-    // 1. 进入此，说明 loading图片 加载完成，马上取消 onload事件
     el.onload = null
+    el.setAttribute('lazy', LifeAttrEnum.LAZYED)
 
     // 2. 检测是否有 mouted 函数
     if (this.options.lifeCycle?.mounted) {
@@ -101,7 +102,8 @@ class Lazy {
       // 滚动高度 + 当前window的显示区高度 > 该dom距离顶部的高度
       el.onload = this._newImgLoadEvent.bind(this, el, binding)
 
-      this._setImgSrc(el, binding.value, LifeAttrEnum.LAZYED)
+      // this._setImgSrc(el, binding.value, LifeAttrEnum.LAZYED)
+      el.setAttribute('src', binding.value)
 
       // 移除 _imgList 里的图片
       let index = this._imgList.findIndex((v) => v.el === el)

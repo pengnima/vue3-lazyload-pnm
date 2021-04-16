@@ -1,5 +1,5 @@
 /*!
- * Vue3-Lazyload.js v0.0.4
+ * Vue3-Lazyload.js v0.0.5
  * A Vue3.x image lazyload plugin
  * (c) 2021 PengNima 
  * Released under the MIT License.
@@ -38,7 +38,8 @@ var Lazy = /** @class */ (function () {
                         if (v.el === entrie.target) {
                             // console.log('加载')
                             v.el.onload = _this._newImgLoadEvent.bind(_this, v.el, v.binding);
-                            _this._setImgSrc(v.el, v.binding.value, LifeAttrEnum.LAZYED);
+                            // this._setImgSrc(v.el, v.binding.value, LifeAttrEnum.LAZYED)
+                            v.el.setAttribute('src', v.binding.value);
                             _this._io.unobserve(v.el); // 移除监听
                             _this._imgList.splice(i, 1); // 删除元素
                         }
@@ -69,8 +70,8 @@ var Lazy = /** @class */ (function () {
     Lazy.prototype._newImgLoadEvent = function (el, binding) {
         var _a;
         // console.log('进入new load事件，移出 el.onload 事件')
-        // 1. 进入此，说明 loading图片 加载完成，马上取消 onload事件
         el.onload = null;
+        el.setAttribute('lazy', LifeAttrEnum.LAZYED);
         // 2. 检测是否有 mouted 函数
         if ((_a = this.options.lifeCycle) === null || _a === void 0 ? void 0 : _a.mounted) {
             this.options.lifeCycle.mounted(el, binding);
@@ -101,7 +102,8 @@ var Lazy = /** @class */ (function () {
         if (_scrollTop + vh > el.offsetTop) {
             // 滚动高度 + 当前window的显示区高度 > 该dom距离顶部的高度
             el.onload = this._newImgLoadEvent.bind(this, el, binding);
-            this._setImgSrc(el, binding.value, LifeAttrEnum.LAZYED);
+            // this._setImgSrc(el, binding.value, LifeAttrEnum.LAZYED)
+            el.setAttribute('src', binding.value);
             // 移除 _imgList 里的图片
             var index = this._imgList.findIndex(function (v) { return v.el === el; });
             return this._imgList.splice(index, 1);

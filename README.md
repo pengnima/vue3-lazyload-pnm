@@ -53,10 +53,10 @@ Css
 
 ```html
 <style>
-  img[lazy='loading'] {
+  img[lazy='lazying'] {
     /*your style here*/
   }
-  img[lazy='loaded'] {
+  img[lazy='lazyed'] {
     /*your style here*/
   }
 </style>
