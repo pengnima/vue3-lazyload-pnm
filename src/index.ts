@@ -21,6 +21,13 @@ export default {
 
         // 初始 el
         lazy.init(el, binding)
+      },
+      updated: function (el, binding) {
+        if (binding.oldValue != binding.value) {
+          // console.log('已改变', binding.oldValue, binding.value)
+          lazy.destory(el)
+          lazy.init(el, binding)
+        }
       }
     })
   }

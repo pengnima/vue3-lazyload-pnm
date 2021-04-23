@@ -1,5 +1,5 @@
 /*!
- * Vue3-Lazyload.js v0.0.5
+ * Vue3-Lazyload.js v0.0.6
  * A Vue3.x image lazyload plugin
  * (c) 2021 PengNima 
  * Released under the MIT License.
@@ -46,8 +46,7 @@
                                 v.el.onload = _this._newImgLoadEvent.bind(_this, v.el, v.binding);
                                 // this._setImgSrc(v.el, v.binding.value, LifeAttrEnum.LAZYED)
                                 v.el.setAttribute('src', v.binding.value);
-                                _this._io.unobserve(v.el); // 移除监听
-                                _this._imgList.splice(i, 1); // 删除元素
+                                _this.destory(v.el);
                             }
                         }
                     }
@@ -89,8 +88,7 @@
         Lazy.prototype._imgErrorEvent = function (el, binding) {
             var _a;
             // 移除 _imgList 里的图片
-            var index = this._imgList.findIndex(function (v) { return v.el === el; });
-            this._imgList.splice(index, 1);
+            this.destory(el);
             if ((_a = this.options.lifeCycle) === null || _a === void 0 ? void 0 : _a.error) {
                 // 调用 error
                 this.options.lifeCycle.error(el, binding);
@@ -131,6 +129,16 @@
             // 3. 赋上 初始属性， 当 src 加载完之后进入 load 事件
             this._setImgSrc(el, this.options.loading, LifeAttrEnum.LAZYING);
         };
+        /**
+         * 销毁
+         */
+        Lazy.prototype.destory = function (el) {
+            this._io.unobserve(el);
+            var index = this._imgList.findIndex(function (v) { return v.el === el; });
+            if (index >= 0) {
+                this._imgList.splice(index, 1);
+            }
+        };
         return Lazy;
     }());
 
@@ -151,6 +159,13 @@
                     }
                     // 初始 el
                     lazy.init(el, binding);
+                },
+                updated: function (el, binding) {
+                    if (binding.oldValue != binding.value) {
+                        // console.log('已改变', binding.oldValue, binding.value)
+                        lazy.destory(el);
+                        lazy.init(el, binding);
+                    }
                 }
             });
         }

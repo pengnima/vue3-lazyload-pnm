@@ -1,6 +1,6 @@
 {
   "name": "vue3-lazyload-pnm",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "适用于Vue3的图片懒加载",
   "main": "dist/vue3-lazyload-pnm.js",
   "module": "dist/vue3-lazyload-pnm.esm.js",

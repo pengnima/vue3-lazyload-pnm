@@ -32,8 +32,7 @@ class Lazy {
               // this._setImgSrc(v.el, v.binding.value, LifeAttrEnum.LAZYED)
               v.el.setAttribute('src', v.binding.value)
 
-              this._io.unobserve(v.el) // 移除监听
-              this._imgList.splice(i, 1) // 删除元素
+              this.destory(v.el)
             }
           }
         }
@@ -80,8 +79,7 @@ class Lazy {
    */
   private _imgErrorEvent(el: HTMLElement, binding: DirectiveBinding<any>) {
     // 移除 _imgList 里的图片
-    let index = this._imgList.findIndex((v) => v.el === el)
-    this._imgList.splice(index, 1)
+    this.destory(el)
 
     if (this.options.lifeCycle?.error) {
       // 调用 error
@@ -129,6 +127,17 @@ class Lazy {
 
     // 3. 赋上 初始属性， 当 src 加载完之后进入 load 事件
     this._setImgSrc(el, this.options.loading, LifeAttrEnum.LAZYING)
+  }
+
+  /**
+   * 销毁
+   */
+  public destory(el: HTMLElement) {
+    this._io.unobserve(el)
+    let index = this._imgList.findIndex((v) => v.el === el)
+    if (index >= 0) {
+      this._imgList.splice(index, 1)
+    }
   }
 }
 

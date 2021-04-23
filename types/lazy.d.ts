@@ -38,5 +38,7 @@ export default class Lazy {
    * @param binding vue指令的，一般用来获取 .value值
    */
   public init(el: HTMLElement, binding: DirectiveBinding<any>):void
+
+  public destory(el: HTMLElement):void
 }
  
